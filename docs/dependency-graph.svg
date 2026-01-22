@@ -1,103 +1,134 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 520">
   <defs>
-    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#666"/>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#888"/>
     </marker>
     <style>
-      .node { stroke: #333; stroke-width: 2; }
-      .level0 { fill: #e8f5e9; }
-      .level1 { fill: #e3f2fd; }
-      .level2 { fill: #fff3e0; }
-      .level3 { fill: #fce4ec; }
-      .label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 600; }
-      .sublabel { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 11px; fill: #666; }
-      .arrow { stroke: #666; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
-      .legend { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 12px; }
+      .node { stroke-width: 2; rx: 10; }
+      .start { fill: #c8e6c9; stroke: #4caf50; }
+      .mid { fill: #bbdefb; stroke: #2196f3; }
+      .late { fill: #ffe0b2; stroke: #ff9800; }
+      .final { fill: #f8bbd9; stroke: #e91e63; }
+      .title { font: bold 16px system-ui, sans-serif; fill: #333; }
+      .subtitle { font: 12px system-ui, sans-serif; fill: #666; }
+      .arrow { stroke: #888; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .phase { font: bold 12px system-ui, sans-serif; fill: #999; }
     </style>
   </defs>
 
-  <!-- Title -->
-  <text x="400" y="30" text-anchor="middle" class="label" style="font-size: 18px;">Dependency Graph</text>
-  <text x="400" y="50" text-anchor="middle" class="sublabel">Arrows show what must complete before an issue can start</text>
+  <!-- Phase labels -->
+  <text x="30" y="95" class="phase">PHASE 1</text>
+  <text x="30" y="110" class="subtitle">Start immediately</text>
 
-  <!-- Level 0: No dependencies -->
-  <rect x="80" y="80" width="120" height="60" rx="8" class="node level0"/>
-  <text x="140" y="108" text-anchor="middle" class="label">#1</text>
-  <text x="140" y="125" text-anchor="middle" class="sublabel">greeting</text>
+  <text x="30" y="215" class="phase">PHASE 2</text>
+  <text x="30" y="230" class="subtitle">After 1+ deps</text>
 
-  <rect x="340" y="80" width="120" height="60" rx="8" class="node level0"/>
-  <text x="400" y="108" text-anchor="middle" class="label">#2</text>
-  <text x="400" y="125" text-anchor="middle" class="sublabel">math</text>
+  <text x="30" y="335" class="phase">PHASE 3</text>
+  <text x="30" y="350" class="subtitle">After phase 2</text>
 
-  <rect x="600" y="80" width="120" height="60" rx="8" class="node level0"/>
-  <text x="660" y="108" text-anchor="middle" class="label">#3</text>
-  <text x="660" y="125" text-anchor="middle" class="sublabel">string</text>
+  <text x="30" y="455" class="phase">PHASE 4</text>
+  <text x="30" y="470" class="subtitle">Final</text>
 
-  <!-- Level 1 -->
-  <rect x="340" y="190" width="120" height="60" rx="8" class="node level1"/>
-  <text x="400" y="218" text-anchor="middle" class="label">#4</text>
-  <text x="400" y="235" text-anchor="middle" class="sublabel">calculator</text>
+  <!-- Phase 1: No dependencies -->
+  <g transform="translate(180, 70)">
+    <rect class="node start" width="100" height="55"/>
+    <text x="50" y="28" text-anchor="middle" class="title">#1</text>
+    <text x="50" y="45" text-anchor="middle" class="subtitle">greeting</text>
+  </g>
 
-  <rect x="600" y="190" width="120" height="60" rx="8" class="node level1"/>
-  <text x="660" y="218" text-anchor="middle" class="label">#5</text>
-  <text x="660" y="235" text-anchor="middle" class="sublabel">formatter</text>
+  <g transform="translate(320, 70)">
+    <rect class="node start" width="100" height="55"/>
+    <text x="50" y="28" text-anchor="middle" class="title">#2</text>
+    <text x="50" y="45" text-anchor="middle" class="subtitle">math</text>
+  </g>
 
-  <rect x="80" y="300" width="120" height="60" rx="8" class="node level1"/>
-  <text x="140" y="328" text-anchor="middle" class="label">#7</text>
-  <text x="140" y="345" text-anchor="middle" class="sublabel">barrel export</text>
+  <g transform="translate(460, 70)">
+    <rect class="node start" width="100" height="55"/>
+    <text x="50" y="28" text-anchor="middle" class="title">#3</text>
+    <text x="50" y="45" text-anchor="middle" class="subtitle">string</text>
+  </g>
 
-  <!-- Level 2 -->
-  <rect x="470" y="300" width="120" height="60" rx="8" class="node level2"/>
-  <text x="530" y="328" text-anchor="middle" class="label">#6</text>
-  <text x="530" y="345" text-anchor="middle" class="sublabel">welcome</text>
+  <!-- Phase 2 -->
+  <g transform="translate(180, 190)">
+    <rect class="node mid" width="100" height="55"/>
+    <text x="50" y="28" text-anchor="middle" class="title">#7</text>
+    <text x="50" y="45" text-anchor="middle" class="subtitle">barrel</text>
+  </g>
 
-  <!-- Level 3 -->
-  <rect x="270" y="410" width="120" height="60" rx="8" class="node level3"/>
-  <text x="330" y="438" text-anchor="middle" class="label">#8</text>
-  <text x="330" y="455" text-anchor="middle" class="sublabel">main entry</text>
+  <g transform="translate(320, 190)">
+    <rect class="node mid" width="100" height="55"/>
+    <text x="50" y="28" text-anchor="middle" class="title">#4</text>
+    <text x="50" y="45" text-anchor="middle" class="subtitle">calculator</text>
+  </g>
 
-  <!-- Arrows from Level 0 -->
-  <!-- #2 -> #4 -->
-  <path d="M400 140 L400 185" class="arrow"/>
+  <g transform="translate(460, 190)">
+    <rect class="node mid" width="100" height="55"/>
+    <text x="50" y="28" text-anchor="middle" class="title">#5</text>
+    <text x="50" y="45" text-anchor="middle" class="subtitle">formatter</text>
+  </g>
 
-  <!-- #3 -> #5 -->
-  <path d="M660 140 L660 185" class="arrow"/>
+  <!-- Phase 3 -->
+  <g transform="translate(320, 310)">
+    <rect class="node late" width="100" height="55"/>
+    <text x="50" y="28" text-anchor="middle" class="title">#6</text>
+    <text x="50" y="45" text-anchor="middle" class="subtitle">welcome</text>
+  </g>
 
-  <!-- #1 -> #7 -->
-  <path d="M140 140 L140 295" class="arrow"/>
+  <!-- Phase 4 -->
+  <g transform="translate(320, 430)">
+    <rect class="node final" width="100" height="55"/>
+    <text x="50" y="28" text-anchor="middle" class="title">#8</text>
+    <text x="50" y="45" text-anchor="middle" class="subtitle">main</text>
+  </g>
 
-  <!-- #2 -> #7 -->
-  <path d="M355 140 L155 295" class="arrow"/>
+  <!-- Arrows Phase 1 → Phase 2 -->
+  <!-- #1 → #7 -->
+  <path class="arrow" d="M230,125 L230,185"/>
 
-  <!-- #3 -> #7 -->
-  <path d="M615 140 L185 300" class="arrow"/>
+  <!-- #2 → #7 -->
+  <path class="arrow" d="M340,125 L260,185"/>
 
-  <!-- Arrows from Level 1 -->
-  <!-- #4 -> #8 -->
-  <path d="M380 250 L340 405" class="arrow"/>
+  <!-- #3 → #7 -->
+  <path class="arrow" d="M480,125 L280,190"/>
 
-  <!-- #5 -> #6 -->
-  <path d="M615 250 L560 295" class="arrow"/>
+  <!-- #2 → #4 -->
+  <path class="arrow" d="M370,125 L370,185"/>
 
-  <!-- #1 -> #6 -->
-  <path d="M185 140 L495 300" class="arrow"/>
+  <!-- #3 → #5 -->
+  <path class="arrow" d="M510,125 L510,185"/>
 
-  <!-- #7 -> #8 -->
-  <path d="M175 360 L285 410" class="arrow"/>
+  <!-- Arrows Phase 1/2 → Phase 3 -->
+  <!-- #1 → #6 -->
+  <path class="arrow" d="M260,125 L350,305"/>
 
-  <!-- #6 -> #8 -->
-  <path d="M495 360 L365 410" class="arrow"/>
+  <!-- #5 → #6 -->
+  <path class="arrow" d="M480,245 L400,310"/>
 
-  <!-- Legend -->
-  <rect x="620" y="390" width="16" height="16" rx="3" class="node level0"/>
-  <text x="645" y="403" class="legend">Start immediately</text>
+  <!-- Arrows → Phase 4 -->
+  <!-- #7 → #8 -->
+  <path class="arrow" d="M260,245 L345,425"/>
 
-  <rect x="620" y="415" width="16" height="16" rx="3" class="node level1"/>
-  <text x="645" y="428" class="legend">After 1 dependency</text>
+  <!-- #4 → #8 -->
+  <path class="arrow" d="M370,245 L370,425"/>
 
-  <rect x="620" y="440" width="16" height="16" rx="3" class="node level2"/>
-  <text x="645" y="453" class="legend">After 2 dependencies</text>
+  <!-- #6 → #8 -->
+  <path class="arrow" d="M370,365 L370,425"/>
 
-  <rect x="620" y="465" width="16" height="16" rx="3" class="node level3"/>
-  <text x="645" y="478" class="legend">After 3 dependencies</text>
+  <!-- Legend box -->
+  <g transform="translate(560, 300)">
+    <rect x="0" y="0" width="120" height="130" fill="#f5f5f5" stroke="#ddd" rx="5"/>
+    <text x="60" y="20" text-anchor="middle" class="phase">LEGEND</text>
+
+    <rect x="10" y="35" width="20" height="15" class="node start"/>
+    <text x="40" y="47" class="subtitle">No deps</text>
+
+    <rect x="10" y="58" width="20" height="15" class="node mid"/>
+    <text x="40" y="70" class="subtitle">1-3 deps</text>
+
+    <rect x="10" y="81" width="20" height="15" class="node late"/>
+    <text x="40" y="93" class="subtitle">2 deps</text>
+
+    <rect x="10" y="104" width="20" height="15" class="node final"/>
+    <text x="40" y="116" class="subtitle">3 deps</text>
+  </g>
 </svg>
