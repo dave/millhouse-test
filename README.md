@@ -17,34 +17,42 @@ This repository contains test issues for testing [Millhouse](https://github.com/
 
 ## Dependency Graph
 
+Arrows point from dependency → dependent (issue on left must finish before issue on right can start):
+
 ```
-    #1 greeting        #2 math          #3 string
-         │                 │                 │
-         │                 │                 │
-         ▼                 ▼                 ▼
-    ┌────────────────────────────────────────────┐
-    │           Arrows show dependencies:        │
-    │           An issue starts when ALL its     │
-    │           dependencies complete            │
-    └────────────────────────────────────────────┘
-         │                 │                 │
-         │                 ▼                 │
-         │            #4 calculator          │
-         │            (needs: #2)            │
-         │                 │                 ▼
-         │                 │            #5 formatter
-         │                 │            (needs: #3)
-         │                 │                 │
-         ▼                 │                 ▼
-    #7 barrel ◄────────────┤            #6 welcome
-    (needs: #1,#2,#3)      │            (needs: #1,#5)
-         │                 │                 │
-         │                 ▼                 │
-         └────────────►  #8 main  ◄──────────┘
-                      (needs: #4,#6,#7)
+┌───────────────────────────────────────────────────────────────┐
+│                                                               │
+│   #1 ─────────────────┬─────────────────────────────► #6      │
+│   greeting            │                              welcome  │
+│                       │                                 ▲     │
+│                       │                                 │     │
+│                       ▼                                 │     │
+│   #2 ───────────► #4 calculator                         │     │
+│   math                │                                 │     │
+│                       │                                 │     │
+│   #3 ───────────► #5 formatter ─────────────────────────┘     │
+│   string              │                                       │
+│                       │                                       │
+│                       │                                       │
+│   #1 ─────┐           │                                       │
+│   #2 ─────┼───────► #7 barrel                                 │
+│   #3 ─────┘           │                                       │
+│                       │                                       │
+│                       ▼                                       │
+│   #4 ─────┐                                                   │
+│   #6 ─────┼───────► #8 main entry                             │
+│   #7 ─────┘                                                   │
+│                                                               │
+└───────────────────────────────────────────────────────────────┘
 ```
 
-**Key insight**: #4 starts as soon as #2 finishes (doesn't wait for #1 or #3).
+**Key points:**
+- #1, #2, #3 have no dependencies → start immediately in parallel
+- #4 starts when #2 finishes (doesn't wait for #1 or #3)
+- #5 starts when #3 finishes
+- #6 starts when BOTH #1 AND #5 finish
+- #7 starts when ALL of #1, #2, #3 finish
+- #8 starts when ALL of #4, #6, #7 finish
 
 ## Execution Example
 
