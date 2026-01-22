@@ -18,53 +18,50 @@ This repository contains test issues for testing [Millhouse](https://github.com/
 ## Dependency Graph
 
 ```
-Level 0 (no dependencies - run in parallel):
-┌─────────┐  ┌─────────┐  ┌─────────┐
-│ #1      │  │ #2      │  │ #3      │
-│ greeting│  │ math    │  │ string  │
-└────┬────┘  └────┬────┘  └────┬────┘
-     │            │            │
-     ├────────────┼────────────┤
-     │            │            │
-     ▼            ▼            ▼
-Level 1 (unblocked after Level 0):
-┌─────────┐  ┌─────────┐  ┌─────────┐
-│ #7      │  │ #4      │  │ #5      │
-│ barrel  │  │ calc    │  │ formatter│
-│ (1,2,3) │  │ (2)     │  │ (3)     │
-└────┬────┘  └────┬────┘  └────┬────┘
-     │            │            │
-     │            │            ▼
-     │            │       ┌─────────┐
-     │            │       │ #6      │
-     │            │       │ welcome │
-     │            │       │ (1,5)   │
-     │            │       └────┬────┘
-     │            │            │
-     ├────────────┼────────────┤
-     │            │            │
-     ▼            ▼            ▼
-Level 2 (final):
-          ┌─────────────┐
-          │ #8          │
-          │ main entry  │
-          │ (4,6,7)     │
-          └─────────────┘
+    #1 greeting        #2 math          #3 string
+         │                 │                 │
+         │                 │                 │
+         ▼                 ▼                 ▼
+    ┌────────────────────────────────────────────┐
+    │           Arrows show dependencies:        │
+    │           An issue starts when ALL its     │
+    │           dependencies complete            │
+    └────────────────────────────────────────────┘
+         │                 │                 │
+         │                 ▼                 │
+         │            #4 calculator          │
+         │            (needs: #2)            │
+         │                 │                 ▼
+         │                 │            #5 formatter
+         │                 │            (needs: #3)
+         │                 │                 │
+         ▼                 │                 ▼
+    #7 barrel ◄────────────┤            #6 welcome
+    (needs: #1,#2,#3)      │            (needs: #1,#5)
+         │                 │                 │
+         │                 ▼                 │
+         └────────────►  #8 main  ◄──────────┘
+                      (needs: #4,#6,#7)
 ```
 
-## Execution Order
+**Key insight**: #4 starts as soon as #2 finishes (doesn't wait for #1 or #3).
 
-With default concurrency of 3:
+## Execution Example
 
-| Step | Running | Waiting | Completed |
-|------|---------|---------|-----------|
-| 1 | #1, #2, #3 | #4, #5, #6, #7, #8 | - |
-| 2 | #4, #5, #7 | #6, #8 | #1, #2, #3 |
-| 3 | #6 | #8 | #1, #2, #3, #4, #5, #7 |
-| 4 | #8 | - | #1, #2, #3, #4, #5, #6, #7 |
-| Done | - | - | All |
+With concurrency of 3, here's one possible execution:
 
-Note: The exact order may vary depending on which issues complete first.
+| Time | Event | Running | Blocked |
+|------|-------|---------|---------|
+| T0 | Start | #1, #2, #3 | #4, #5, #6, #7, #8 |
+| T1 | #2 completes | #1, #3, **#4** | #5, #6, #7, #8 |
+| T2 | #3 completes | #1, #4, **#5** | #6, #7, #8 |
+| T3 | #1 completes | #4, #5, **#7** | #6, #8 |
+| T4 | #5 completes | #4, #7, **#6** | #8 |
+| T5 | #4, #7 complete | #6 | #8 |
+| T6 | #6 completes | **#8** | - |
+| T7 | #8 completes | Done | - |
+
+Note: Actual order varies based on which issues finish first.
 
 ## Running the Test
 
