@@ -17,42 +17,16 @@ This repository contains test issues for testing [Millhouse](https://github.com/
 
 ## Dependency Graph
 
-Arrows point from dependency → dependent (issue on left must finish before issue on right can start):
-
-```
-┌───────────────────────────────────────────────────────────────┐
-│                                                               │
-│   #1 ─────────────────┬─────────────────────────────► #6      │
-│   greeting            │                              welcome  │
-│                       │                                 ▲     │
-│                       │                                 │     │
-│                       ▼                                 │     │
-│   #2 ───────────► #4 calculator                         │     │
-│   math                │                                 │     │
-│                       │                                 │     │
-│   #3 ───────────► #5 formatter ─────────────────────────┘     │
-│   string              │                                       │
-│                       │                                       │
-│                       │                                       │
-│   #1 ─────┐           │                                       │
-│   #2 ─────┼───────► #7 barrel                                 │
-│   #3 ─────┘           │                                       │
-│                       │                                       │
-│                       ▼                                       │
-│   #4 ─────┐                                                   │
-│   #6 ─────┼───────► #8 main entry                             │
-│   #7 ─────┘                                                   │
-│                                                               │
-└───────────────────────────────────────────────────────────────┘
-```
+![Dependency Graph](docs/dependency-graph.svg)
 
 **Key points:**
-- #1, #2, #3 have no dependencies → start immediately in parallel
-- #4 starts when #2 finishes (doesn't wait for #1 or #3)
-- #5 starts when #3 finishes
-- #6 starts when BOTH #1 AND #5 finish
-- #7 starts when ALL of #1, #2, #3 finish
-- #8 starts when ALL of #4, #6, #7 finish
+- **Green (#1, #2, #3)**: No dependencies → start immediately in parallel
+- **Blue (#4, #5, #7)**: Start as soon as their specific dependencies complete
+  - #4 starts when #2 finishes (doesn't wait for #1 or #3!)
+  - #5 starts when #3 finishes
+  - #7 starts when #1, #2, AND #3 all finish
+- **Orange (#6)**: Starts when #1 AND #5 finish
+- **Pink (#8)**: Starts when #4, #6, AND #7 all finish
 
 ## Execution Example
 

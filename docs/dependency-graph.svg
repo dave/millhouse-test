@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#666"/>
+    </marker>
+    <style>
+      .node { stroke: #333; stroke-width: 2; }
+      .level0 { fill: #e8f5e9; }
+      .level1 { fill: #e3f2fd; }
+      .level2 { fill: #fff3e0; }
+      .level3 { fill: #fce4ec; }
+      .label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 600; }
+      .sublabel { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 11px; fill: #666; }
+      .arrow { stroke: #666; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .legend { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 12px; }
+    </style>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" class="label" style="font-size: 18px;">Dependency Graph</text>
+  <text x="400" y="50" text-anchor="middle" class="sublabel">Arrows show what must complete before an issue can start</text>
+
+  <!-- Level 0: No dependencies -->
+  <rect x="80" y="80" width="120" height="60" rx="8" class="node level0"/>
+  <text x="140" y="108" text-anchor="middle" class="label">#1</text>
+  <text x="140" y="125" text-anchor="middle" class="sublabel">greeting</text>
+
+  <rect x="340" y="80" width="120" height="60" rx="8" class="node level0"/>
+  <text x="400" y="108" text-anchor="middle" class="label">#2</text>
+  <text x="400" y="125" text-anchor="middle" class="sublabel">math</text>
+
+  <rect x="600" y="80" width="120" height="60" rx="8" class="node level0"/>
+  <text x="660" y="108" text-anchor="middle" class="label">#3</text>
+  <text x="660" y="125" text-anchor="middle" class="sublabel">string</text>
+
+  <!-- Level 1 -->
+  <rect x="340" y="190" width="120" height="60" rx="8" class="node level1"/>
+  <text x="400" y="218" text-anchor="middle" class="label">#4</text>
+  <text x="400" y="235" text-anchor="middle" class="sublabel">calculator</text>
+
+  <rect x="600" y="190" width="120" height="60" rx="8" class="node level1"/>
+  <text x="660" y="218" text-anchor="middle" class="label">#5</text>
+  <text x="660" y="235" text-anchor="middle" class="sublabel">formatter</text>
+
+  <rect x="80" y="300" width="120" height="60" rx="8" class="node level1"/>
+  <text x="140" y="328" text-anchor="middle" class="label">#7</text>
+  <text x="140" y="345" text-anchor="middle" class="sublabel">barrel export</text>
+
+  <!-- Level 2 -->
+  <rect x="470" y="300" width="120" height="60" rx="8" class="node level2"/>
+  <text x="530" y="328" text-anchor="middle" class="label">#6</text>
+  <text x="530" y="345" text-anchor="middle" class="sublabel">welcome</text>
+
+  <!-- Level 3 -->
+  <rect x="270" y="410" width="120" height="60" rx="8" class="node level3"/>
+  <text x="330" y="438" text-anchor="middle" class="label">#8</text>
+  <text x="330" y="455" text-anchor="middle" class="sublabel">main entry</text>
+
+  <!-- Arrows from Level 0 -->
+  <!-- #2 -> #4 -->
+  <path d="M400 140 L400 185" class="arrow"/>
+
+  <!-- #3 -> #5 -->
+  <path d="M660 140 L660 185" class="arrow"/>
+
+  <!-- #1 -> #7 -->
+  <path d="M140 140 L140 295" class="arrow"/>
+
+  <!-- #2 -> #7 -->
+  <path d="M355 140 L155 295" class="arrow"/>
+
+  <!-- #3 -> #7 -->
+  <path d="M615 140 L185 300" class="arrow"/>
+
+  <!-- Arrows from Level 1 -->
+  <!-- #4 -> #8 -->
+  <path d="M380 250 L340 405" class="arrow"/>
+
+  <!-- #5 -> #6 -->
+  <path d="M615 250 L560 295" class="arrow"/>
+
+  <!-- #1 -> #6 -->
+  <path d="M185 140 L495 300" class="arrow"/>
+
+  <!-- #7 -> #8 -->
+  <path d="M175 360 L285 410" class="arrow"/>
+
+  <!-- #6 -> #8 -->
+  <path d="M495 360 L365 410" class="arrow"/>
+
+  <!-- Legend -->
+  <rect x="620" y="390" width="16" height="16" rx="3" class="node level0"/>
+  <text x="645" y="403" class="legend">Start immediately</text>
+
+  <rect x="620" y="415" width="16" height="16" rx="3" class="node level1"/>
+  <text x="645" y="428" class="legend">After 1 dependency</text>
+
+  <rect x="620" y="440" width="16" height="16" rx="3" class="node level2"/>
+  <text x="645" y="453" class="legend">After 2 dependencies</text>
+
+  <rect x="620" y="465" width="16" height="16" rx="3" class="node level3"/>
+  <text x="645" y="478" class="legend">After 3 dependencies</text>
+</svg>
