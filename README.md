@@ -17,16 +17,36 @@ This repository contains test issues for testing [Millhouse](https://github.com/
 
 ## Dependency Graph
 
-![Dependency Graph](docs/dependency-graph.svg)
+```mermaid
+flowchart TD
+    subgraph "No Dependencies - Start Immediately"
+        1["#1 greeting"]
+        2["#2 math"]
+        3["#3 string"]
+    end
+
+    2 --> 4["#4 calculator"]
+    3 --> 5["#5 formatter"]
+
+    1 --> 6["#6 welcome"]
+    5 --> 6
+
+    1 --> 7["#7 barrel"]
+    2 --> 7
+    3 --> 7
+
+    4 --> 8["#8 main"]
+    6 --> 8
+    7 --> 8
+```
 
 **Key points:**
-- **Green (#1, #2, #3)**: No dependencies → start immediately in parallel
-- **Blue (#4, #5, #7)**: Start as soon as their specific dependencies complete
-  - #4 starts when #2 finishes (doesn't wait for #1 or #3!)
-  - #5 starts when #3 finishes
-  - #7 starts when #1, #2, AND #3 all finish
-- **Orange (#6)**: Starts when #1 AND #5 finish
-- **Pink (#8)**: Starts when #4, #6, AND #7 all finish
+- **#1, #2, #3** have no dependencies → start immediately in parallel
+- **#4** starts when #2 finishes (doesn't wait for #1 or #3)
+- **#5** starts when #3 finishes
+- **#7** starts when #1, #2, AND #3 all finish
+- **#6** starts when #1 AND #5 finish
+- **#8** starts when #4, #6, AND #7 all finish
 
 ## Execution Example
 
