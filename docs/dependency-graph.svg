@@ -1,134 +1,109 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 520">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 420">
   <defs>
-    <marker id="arrow" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto">
-      <path d="M0,0 L8,4 L0,8 Z" fill="#888"/>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#888"/>
     </marker>
     <style>
-      .node { stroke-width: 2; rx: 10; }
-      .start { fill: #c8e6c9; stroke: #4caf50; }
-      .mid { fill: #bbdefb; stroke: #2196f3; }
-      .late { fill: #ffe0b2; stroke: #ff9800; }
-      .final { fill: #f8bbd9; stroke: #e91e63; }
-      .title { font: bold 16px system-ui, sans-serif; fill: #333; }
-      .subtitle { font: 12px system-ui, sans-serif; fill: #666; }
-      .arrow { stroke: #888; stroke-width: 2; fill: none; marker-end: url(#arrow); }
-      .phase { font: bold 12px system-ui, sans-serif; fill: #999; }
+      .node { fill: #fff; stroke: #444; stroke-width: 2; }
+      .title { font: bold 15px system-ui, sans-serif; fill: #333; }
+      .sub { font: 11px system-ui, sans-serif; fill: #666; }
+      .arrow { stroke: #aaa; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+      .dep { font: 10px system-ui, sans-serif; fill: #999; }
     </style>
   </defs>
 
-  <!-- Phase labels -->
-  <text x="30" y="95" class="phase">PHASE 1</text>
-  <text x="30" y="110" class="subtitle">Start immediately</text>
-
-  <text x="30" y="215" class="phase">PHASE 2</text>
-  <text x="30" y="230" class="subtitle">After 1+ deps</text>
-
-  <text x="30" y="335" class="phase">PHASE 3</text>
-  <text x="30" y="350" class="subtitle">After phase 2</text>
-
-  <text x="30" y="455" class="phase">PHASE 4</text>
-  <text x="30" y="470" class="subtitle">Final</text>
-
-  <!-- Phase 1: No dependencies -->
-  <g transform="translate(180, 70)">
-    <rect class="node start" width="100" height="55"/>
-    <text x="50" y="28" text-anchor="middle" class="title">#1</text>
-    <text x="50" y="45" text-anchor="middle" class="subtitle">greeting</text>
+  <!-- #1 greeting -->
+  <g transform="translate(80, 50)">
+    <rect class="node" x="-40" y="-20" width="80" height="40" rx="5"/>
+    <text class="title" text-anchor="middle" y="5">#1</text>
+    <text class="sub" text-anchor="middle" y="-30">greeting</text>
   </g>
 
-  <g transform="translate(320, 70)">
-    <rect class="node start" width="100" height="55"/>
-    <text x="50" y="28" text-anchor="middle" class="title">#2</text>
-    <text x="50" y="45" text-anchor="middle" class="subtitle">math</text>
+  <!-- #2 math -->
+  <g transform="translate(300, 50)">
+    <rect class="node" x="-40" y="-20" width="80" height="40" rx="5"/>
+    <text class="title" text-anchor="middle" y="5">#2</text>
+    <text class="sub" text-anchor="middle" y="-30">math</text>
   </g>
 
-  <g transform="translate(460, 70)">
-    <rect class="node start" width="100" height="55"/>
-    <text x="50" y="28" text-anchor="middle" class="title">#3</text>
-    <text x="50" y="45" text-anchor="middle" class="subtitle">string</text>
+  <!-- #3 string -->
+  <g transform="translate(520, 50)">
+    <rect class="node" x="-40" y="-20" width="80" height="40" rx="5"/>
+    <text class="title" text-anchor="middle" y="5">#3</text>
+    <text class="sub" text-anchor="middle" y="-30">string</text>
   </g>
 
-  <!-- Phase 2 -->
-  <g transform="translate(180, 190)">
-    <rect class="node mid" width="100" height="55"/>
-    <text x="50" y="28" text-anchor="middle" class="title">#7</text>
-    <text x="50" y="45" text-anchor="middle" class="subtitle">barrel</text>
+  <!-- #4 calculator -->
+  <g transform="translate(220, 150)">
+    <rect class="node" x="-40" y="-20" width="80" height="40" rx="5"/>
+    <text class="title" text-anchor="middle" y="5">#4</text>
+    <text class="sub" text-anchor="middle" y="-30">calculator</text>
   </g>
 
-  <g transform="translate(320, 190)">
-    <rect class="node mid" width="100" height="55"/>
-    <text x="50" y="28" text-anchor="middle" class="title">#4</text>
-    <text x="50" y="45" text-anchor="middle" class="subtitle">calculator</text>
+  <!-- #5 formatter -->
+  <g transform="translate(440, 150)">
+    <rect class="node" x="-40" y="-20" width="80" height="40" rx="5"/>
+    <text class="title" text-anchor="middle" y="5">#5</text>
+    <text class="sub" text-anchor="middle" y="-30">formatter</text>
   </g>
 
-  <g transform="translate(460, 190)">
-    <rect class="node mid" width="100" height="55"/>
-    <text x="50" y="28" text-anchor="middle" class="title">#5</text>
-    <text x="50" y="45" text-anchor="middle" class="subtitle">formatter</text>
+  <!-- #7 barrel -->
+  <g transform="translate(80, 250)">
+    <rect class="node" x="-40" y="-20" width="80" height="40" rx="5"/>
+    <text class="title" text-anchor="middle" y="5">#7</text>
+    <text class="sub" text-anchor="middle" y="-30">barrel</text>
   </g>
 
-  <!-- Phase 3 -->
-  <g transform="translate(320, 310)">
-    <rect class="node late" width="100" height="55"/>
-    <text x="50" y="28" text-anchor="middle" class="title">#6</text>
-    <text x="50" y="45" text-anchor="middle" class="subtitle">welcome</text>
+  <!-- #6 welcome -->
+  <g transform="translate(440, 250)">
+    <rect class="node" x="-40" y="-20" width="80" height="40" rx="5"/>
+    <text class="title" text-anchor="middle" y="5">#6</text>
+    <text class="sub" text-anchor="middle" y="-30">welcome</text>
   </g>
 
-  <!-- Phase 4 -->
-  <g transform="translate(320, 430)">
-    <rect class="node final" width="100" height="55"/>
-    <text x="50" y="28" text-anchor="middle" class="title">#8</text>
-    <text x="50" y="45" text-anchor="middle" class="subtitle">main</text>
+  <!-- #8 main -->
+  <g transform="translate(260, 370)">
+    <rect class="node" x="-40" y="-20" width="80" height="40" rx="5"/>
+    <text class="title" text-anchor="middle" y="5">#8</text>
+    <text class="sub" text-anchor="middle" y="-30">main</text>
   </g>
 
-  <!-- Arrows Phase 1 → Phase 2 -->
-  <!-- #1 → #7 -->
-  <path class="arrow" d="M230,125 L230,185"/>
-
-  <!-- #2 → #7 -->
-  <path class="arrow" d="M340,125 L260,185"/>
-
-  <!-- #3 → #7 -->
-  <path class="arrow" d="M480,125 L280,190"/>
+  <!-- Arrows with labels -->
 
   <!-- #2 → #4 -->
-  <path class="arrow" d="M370,125 L370,185"/>
+  <path class="arrow" d="M280,70 L235,125"/>
 
   <!-- #3 → #5 -->
-  <path class="arrow" d="M510,125 L510,185"/>
+  <path class="arrow" d="M500,70 L460,125"/>
 
-  <!-- Arrows Phase 1/2 → Phase 3 -->
+  <!-- #1 → #7 -->
+  <path class="arrow" d="M80,70 L80,225"/>
+
+  <!-- #2 → #7 -->
+  <path class="arrow" d="M265,70 L110,225"/>
+
+  <!-- #3 → #7 -->
+  <path class="arrow" d="M485,70 L120,230"/>
+
   <!-- #1 → #6 -->
-  <path class="arrow" d="M260,125 L350,305"/>
+  <path class="arrow" d="M115,70 L405,225"/>
 
   <!-- #5 → #6 -->
-  <path class="arrow" d="M480,245 L400,310"/>
-
-  <!-- Arrows → Phase 4 -->
-  <!-- #7 → #8 -->
-  <path class="arrow" d="M260,245 L345,425"/>
+  <path class="arrow" d="M440,170 L440,225"/>
 
   <!-- #4 → #8 -->
-  <path class="arrow" d="M370,245 L370,425"/>
+  <path class="arrow" d="M230,170 L255,345"/>
+
+  <!-- #7 → #8 -->
+  <path class="arrow" d="M110,270 L225,350"/>
 
   <!-- #6 → #8 -->
-  <path class="arrow" d="M370,365 L370,425"/>
+  <path class="arrow" d="M405,270 L295,350"/>
 
-  <!-- Legend box -->
-  <g transform="translate(560, 300)">
-    <rect x="0" y="0" width="120" height="130" fill="#f5f5f5" stroke="#ddd" rx="5"/>
-    <text x="60" y="20" text-anchor="middle" class="phase">LEGEND</text>
-
-    <rect x="10" y="35" width="20" height="15" class="node start"/>
-    <text x="40" y="47" class="subtitle">No deps</text>
-
-    <rect x="10" y="58" width="20" height="15" class="node mid"/>
-    <text x="40" y="70" class="subtitle">1-3 deps</text>
-
-    <rect x="10" y="81" width="20" height="15" class="node late"/>
-    <text x="40" y="93" class="subtitle">2 deps</text>
-
-    <rect x="10" y="104" width="20" height="15" class="node final"/>
-    <text x="40" y="116" class="subtitle">3 deps</text>
-  </g>
+  <!-- Dependency annotations -->
+  <text class="dep" x="250" y="105">needs #2</text>
+  <text class="dep" x="470" y="105">needs #3</text>
+  <text class="dep" x="5" y="180">needs #1,#2,#3</text>
+  <text class="dep" x="480" y="210">needs #1,#5</text>
+  <text class="dep" x="305" y="330">needs #4,#6,#7</text>
 </svg>
